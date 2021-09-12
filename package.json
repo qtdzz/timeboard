@@ -14,6 +14,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "next": "^11.1.2",
     "next-seo": "^4.26.0",
     "react": "^17.0.2",
