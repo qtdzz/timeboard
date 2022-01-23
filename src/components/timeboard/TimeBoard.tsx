@@ -5,7 +5,7 @@ import moment from 'moment-timezone';
 import Timeline from '../timeline/Timeline';
 
 type TimeBoardProps = {
-  selectedDate: string;
+  selectedDate: number;
   timeZones: string[];
 };
 const TimeBoard = (props: TimeBoardProps) => {
@@ -17,22 +17,18 @@ const TimeBoard = (props: TimeBoardProps) => {
   const baseTimeline = (
     <Timeline
       timeZone={baseTimeZone}
-      startDateTime={baseDateMoment.format()}
+      startEpoch={baseDateMoment.valueOf()}
     ></Timeline>
   );
   const otherTimelines: JSX.Element[] = [];
   props.timeZones
     .filter((a) => a !== baseTimeZone)
     .forEach((timeZone) => {
-      console.log(
-        `timeline for ${timeZone}`,
-        baseDateMoment.clone().tz(timeZone).format()
-      );
       otherTimelines.push(
         <Timeline
           key={timeZone}
           timeZone={timeZone}
-          startDateTime={baseDateMoment.clone().tz(timeZone).format()}
+          startEpoch={baseDateMoment.clone().tz(timeZone).valueOf()}
         ></Timeline>
       );
     });

@@ -10,9 +10,5 @@
 }
 .parent {
   @apply flex;
-  @apply flex-row;
-}
-.segmentContainer {
-  @apply flex;
-  @apply flex-row;
+  @apply flex-col;
 }

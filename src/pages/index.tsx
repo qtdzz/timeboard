@@ -1,11 +1,17 @@
+import moment from 'moment';
+
 import TimeBoard from '../components/timeboard/TimeBoard';
 
 const Index = () => {
-  const baseDate = '2021-09-12T00:00:00';
+  const baseDate = moment().add(-12, 'hour').minute(0).valueOf();
   const timeZones = [
     'Europe/Luxembourg',
     'America/New_York',
+    'America/Los_Angeles',
     'Europe/Helsinki',
+    'Asia/Kolkata',
+    'Asia/Katmandu',
+    'UTC−09:30',
   ];
   return (
     <div>

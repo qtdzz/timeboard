@@ -6,16 +6,22 @@ type TimeSlotProps = {
   value: string;
   isStart: boolean;
   isEnd: boolean;
+  isHalf?: boolean;
+  isThreeQuarter?: boolean;
 };
 const TimeSlot = (props: TimeSlotProps) => {
-  let s = styles.timeslot;
+  const styleList = [styles.timeslot];
   if (props.isStart) {
-    s += ` ${styles.start}`;
+    styleList.push(styles.start);
+  } else if (props.isEnd) {
+    styleList.push(styles.end);
   }
-  if (props.isEnd) {
-    s += ` ${styles.end}`;
+  if (props.isHalf) {
+    styleList.push(styles.half);
+  } else if (props.isThreeQuarter) {
+    styleList.push(styles.threequarter);
   }
-  return <div className={s}>{props.value}</div>;
+  return <div className={styleList.join(' ')}>{props.value}</div>;
 };
 
 export default TimeSlot;

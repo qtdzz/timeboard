@@ -1,7 +1,7 @@
 .timeslot {
   @apply h-10;
   @apply bg-gray-400;
-  @apply w-11;
+  @apply w-12;
   @apply font-sans;
   @apply border-t-2;
   @apply border-b-2;
@@ -12,7 +12,6 @@
   @apply flex;
   @apply items-center;
   @apply justify-center;
-
  }
 .start {
   @apply rounded-tl-md;
@@ -29,6 +28,9 @@
  .timeslot:hover {
    @apply bg-blue-300;
  }
- .parent {
-   @apply flex;
+ .half{
+   @apply w-6;
  }
+ .threequarter{
+  @apply w-9;
+}

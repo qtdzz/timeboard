@@ -1,0 +1,26 @@
+.dayslot {
+  @apply h-8;
+  @apply w-8;
+
+  @apply bg-[#FFE8D6];
+
+  @apply font-sans;
+  @apply leading-none;
+
+  @apply flex;
+  @apply flex-col;
+  @apply items-center;
+  @apply justify-center;
+  @apply rounded-full;
+  @apply mb-1;
+ }
+
+ .dayslot:hover {
+   @apply bg-blue-300;
+ }
+.month {
+  @apply text-xs;
+}
+.day{
+  @apply text-xs;
+}
