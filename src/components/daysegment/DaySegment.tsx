@@ -23,9 +23,6 @@ const DaySegment = (props: DaySegmentProps) => {
   const offsetRemainder = currentDate.utcOffset() % 60;
   const { isFirstSegment } = props;
   if (offsetRemainder !== 0 && isFirstSegment) {
-    if (offsetRemainder > 0) {
-      currentDate.add(-1, 'hour');
-    }
     timeslots.push(
       <TimeSlot
         key={-1}

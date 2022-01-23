@@ -16,3 +16,6 @@
   @apply flex;
   @apply flex-row;
 }
+.zoneSlot {
+  @apply w-11;
+}

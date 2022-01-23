@@ -11,7 +11,7 @@ const Index = () => {
     'Europe/Helsinki',
     'Asia/Kolkata',
     'Asia/Katmandu',
-    'UTC−09:30',
+    'Pacific/Marquesas',
   ];
   return (
     <div>

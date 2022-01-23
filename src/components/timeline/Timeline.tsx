@@ -28,7 +28,6 @@ const Timeline = (props: TimelineProps) => {
   }
   return (
     <div className={styles.parent}>
-      <div>{currentDate.zoneName()}</div>
       <div className={styles.segmentContainer}>{daySegments}</div>
     </div>
   );

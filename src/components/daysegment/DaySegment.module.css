@@ -3,11 +3,7 @@
   @apply flex-row;
   @apply gap-0;
 }
-.dayline {
-  @apply flex;
-  @apply flex-row;
-  @apply gap-0;
-}
+
 .parent {
   @apply flex;
   @apply flex-col;

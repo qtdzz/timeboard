@@ -14,29 +14,40 @@ const TimeBoard = (props: TimeBoardProps) => {
     props.selectedDate,
     props.timeZones[0] ?? 'UTC'
   );
-  const baseTimeline = (
-    <Timeline
-      timeZone={baseTimeZone}
-      startEpoch={baseDateMoment.valueOf()}
-    ></Timeline>
-  );
-  const otherTimelines: JSX.Element[] = [];
-  props.timeZones
-    .filter((a) => a !== baseTimeZone)
-    .forEach((timeZone) => {
-      otherTimelines.push(
+  const baseTimelineMap = (
+    <tr key={baseTimeZone}>
+      <td>{baseTimeZone}</td>
+      <td>
         <Timeline
-          key={timeZone}
-          timeZone={timeZone}
-          startEpoch={baseDateMoment.clone().tz(timeZone).valueOf()}
+          timeZone={baseTimeZone}
+          startEpoch={baseDateMoment.valueOf()}
         ></Timeline>
+      </td>
+    </tr>
+  );
+  const otherTimelines = props.timeZones
+    .filter((a) => a !== baseTimeZone)
+    .map((timeZone) => {
+      return (
+        <tr key={timeZone}>
+          <td>{timeZone}</td>
+          <td>
+            <Timeline
+              timeZone={timeZone}
+              startEpoch={baseDateMoment.clone().tz(timeZone).valueOf()}
+            ></Timeline>
+          </td>
+        </tr>
       );
     });
+
   return (
-    <div>
-      {baseTimeline}
-      {otherTimelines}
-    </div>
+    <table className="table-auto">
+      <tbody>
+        {baseTimelineMap}
+        {otherTimelines}
+      </tbody>
+    </table>
   );
 };
 
