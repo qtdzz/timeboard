@@ -1,7 +1,7 @@
 .timeslot {
   @apply h-10;
   @apply bg-gray-400;
-  @apply w-12;
+  @apply w-8;
   @apply font-sans;
   @apply border-t-2;
   @apply border-b-2;
@@ -10,27 +10,45 @@
   @apply border-t-gray-500;
   @apply border-b-gray-500;
   @apply flex;
+  @apply flex-col;
   @apply items-center;
   @apply justify-center;
- }
-.start {
   @apply rounded-tl-md;
   @apply rounded-bl-md;
   @apply border-l;
   @apply border-l-gray-500;
-}
-.end {
   @apply border-r;
   @apply border-gray-500;
   @apply rounded-tr-md;
   @apply rounded-br-md;
+  @apply leading-none;
+ }
+
+ .subContent {
+   @apply text-xs;
+ }
+
+.line {
+  @apply h-1;
+  @apply w-12;
+  @apply font-sans;
+  @apply border-t-2;
+  @apply border-b-2;
+  @apply border-r;
+  @apply flex;
+  @apply items-center;
+  @apply justify-center;
+  @apply border-l;
+  @apply border-r;
+  @apply border-gray-500;
 }
+.slotParent {
+  @apply flex;
+  @apply flex-row;
+  @apply items-center;
+  @apply justify-center;
+}
+
  .timeslot:hover {
    @apply bg-blue-300;
  }
- .half{
-   @apply w-6;
- }
- .threequarter{
-  @apply w-9;
-}

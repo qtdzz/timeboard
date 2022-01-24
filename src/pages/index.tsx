@@ -13,6 +13,7 @@ const Index = () => {
     'Asia/Katmandu',
     'Pacific/Marquesas',
   ];
+
   return (
     <div>
       <TimeBoard selectedDate={baseDate} timeZones={timeZones}></TimeBoard>

@@ -19,8 +19,9 @@ const DaySegment = (props: DaySegmentProps) => {
     fullDate: currentDate.format('dddd, MMMM Do, YYYY'),
   };
   const timeslots = [];
-  const timeFormat = 'HH';
   const offsetRemainder = currentDate.utcOffset() % 60;
+  const timeFormat = offsetRemainder === 0 ? 'HH' : 'HH:mm';
+
   const { isFirstSegment } = props;
   if (offsetRemainder !== 0 && isFirstSegment) {
     timeslots.push(
@@ -29,8 +30,6 @@ const DaySegment = (props: DaySegmentProps) => {
         value={currentDate.format(timeFormat)}
         isStart={currentDate.hour() === 0}
         isEnd={currentDate.hour() === 23}
-        isHalf={offsetRemainder % 30 === 0}
-        isThreeQuarter={offsetRemainder % 45 === 0}
       ></TimeSlot>
     );
     currentDate.add(1, 'hour');
