@@ -9,42 +9,38 @@ import styles from './DaySegment.module.css';
 type DaySegmentProps = {
   startEpoch: number;
   timeZone: string;
-  isFirstSegment: boolean;
+  maxEpoch: number;
 };
 const DaySegment = (props: DaySegmentProps) => {
-  let currentDate = moment.tz(props.startEpoch, props.timeZone);
+  let processDate = moment.tz(props.startEpoch, props.timeZone);
+  const now = moment.tz(props.timeZone);
+
   const dayslotProps = {
-    month: currentDate.format('MMM'),
-    day: currentDate.format('DD'),
-    fullDate: currentDate.format('dddd, MMMM Do, YYYY'),
+    month: processDate.format('MMM'),
+    day: processDate.format('DD'),
+    fullDate: processDate.format('dddd, MMMM Do, YYYY'),
+    isToday: now.dayOfYear() === processDate.dayOfYear(),
   };
   const timeslots = [];
-  const offsetRemainder = currentDate.utcOffset() % 60;
-  const timeFormat = offsetRemainder === 0 ? 'HH' : 'HH:mm';
-
-  const { isFirstSegment } = props;
-  if (offsetRemainder !== 0 && isFirstSegment) {
-    timeslots.push(
-      <TimeSlot
-        key={-1}
-        value={currentDate.format(timeFormat)}
-        isStart={currentDate.hour() === 0}
-        isEnd={currentDate.hour() === 23}
-      ></TimeSlot>
-    );
-    currentDate.add(1, 'hour');
-  }
-  // eslint-disable-next-line no-plusplus
-  for (let index = currentDate.hour(); index < 24; index++) {
+  const minute = processDate.minute();
+  const timeFormat = minute === 0 ? 'HH' : 'HH:mm';
+  for (
+    let index = processDate.hour();
+    index < 24 && processDate.valueOf() < props.maxEpoch;
+    // eslint-disable-next-line no-plusplus
+    index++
+  ) {
+    const isNow =
+      now.hour() === processDate.hour() &&
+      now.dayOfYear() === processDate.dayOfYear();
     timeslots.push(
       <TimeSlot
         key={index}
-        value={currentDate.format(timeFormat)}
-        isStart={index === 0}
-        isEnd={index === 23}
+        value={processDate.format(timeFormat)}
+        isNow={isNow}
       ></TimeSlot>
     );
-    currentDate = currentDate.add(1, 'hour');
+    processDate = processDate.add(1, 'hour');
   }
   return (
     <div className={styles.parent}>
@@ -53,6 +49,7 @@ const DaySegment = (props: DaySegmentProps) => {
           month={dayslotProps.month.toString()}
           day={dayslotProps.day.toString()}
           fullDate={dayslotProps.fullDate}
+          isToday={dayslotProps.isToday}
         ></DaySlot>
       </div>
       <div className={styles.timeline}>{timeslots}</div>

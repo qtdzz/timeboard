@@ -22,6 +22,12 @@
   @apply rounded-tr-md;
   @apply rounded-br-md;
   @apply leading-none;
+  @apply text-[#3D405B];
+ }
+
+ .now{
+   @apply bg-[#81B29A];
+   @apply bg-opacity-70;
  }
 
  .subContent {
@@ -29,19 +35,19 @@
  }
 
 .line {
-  @apply h-1;
+  @apply h-2;
   @apply w-12;
   @apply font-sans;
-  @apply border-t-2;
-  @apply border-b-2;
-  @apply border-r;
   @apply flex;
   @apply items-center;
   @apply justify-center;
-  @apply border-l;
-  @apply border-r;
-  @apply border-gray-500;
+  @apply bg-gray-500;
 }
+
+.line:hover {
+  @apply bg-blue-300;
+}
+
 .slotParent {
   @apply flex;
   @apply flex-row;

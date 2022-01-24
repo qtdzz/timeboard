@@ -3,7 +3,8 @@ import moment from 'moment';
 import TimeBoard from '../components/timeboard/TimeBoard';
 
 const Index = () => {
-  const baseDate = moment().add(-12, 'hour').minute(0).valueOf();
+  const baseTimeZone = 'Pacific/Marquesas';
+  const baseDate = moment.tz(baseTimeZone).add(-6, 'hour').minute(0).valueOf();
   const timeZones = [
     'Europe/Luxembourg',
     'America/New_York',
@@ -16,7 +17,11 @@ const Index = () => {
 
   return (
     <div>
-      <TimeBoard selectedDate={baseDate} timeZones={timeZones}></TimeBoard>
+      <TimeBoard
+        selectedDate={baseDate}
+        baseTimeZone={baseTimeZone}
+        timeZones={timeZones}
+      ></TimeBoard>
     </div>
   );
 };

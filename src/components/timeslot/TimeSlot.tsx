@@ -4,15 +4,12 @@ import styles from './TimeSlot.module.css';
 
 type TimeSlotProps = {
   value: string;
-  isStart: boolean;
-  isEnd: boolean;
+  isNow: boolean;
 };
 const TimeSlot = (props: TimeSlotProps) => {
   const styleList = [styles.timeslot];
-  if (props.isStart) {
-    styleList.push(styles.start);
-  } else if (props.isEnd) {
-    styleList.push(styles.end);
+  if (props.isNow) {
+    styleList.push(styles.now);
   }
   let content = props.value;
   let subContent = '';

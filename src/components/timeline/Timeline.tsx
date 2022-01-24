@@ -12,15 +12,16 @@ type TimelineProps = {
 const Timeline = (props: TimelineProps) => {
   const daySegments = [];
   const currentDate = moment.tz(props.startEpoch, props.timeZone);
+  const maxEpoch = currentDate.valueOf() + 30 * 60 * 60 * 1000;
   // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < 36; i++) {
+  for (let i = 0; i < 36 && currentDate.valueOf() < maxEpoch; i++) {
     if (i === 0 || currentDate.hour() === 0) {
       daySegments.push(
         <DaySegment
           key={i}
           startEpoch={currentDate.valueOf()}
           timeZone={props.timeZone}
-          isFirstSegment={i === 0}
+          maxEpoch={maxEpoch}
         ></DaySegment>
       );
     }

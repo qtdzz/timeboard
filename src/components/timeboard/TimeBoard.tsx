@@ -6,14 +6,12 @@ import Timeline from '../timeline/Timeline';
 
 type TimeBoardProps = {
   selectedDate: number;
+  baseTimeZone: string;
   timeZones: string[];
 };
 const TimeBoard = (props: TimeBoardProps) => {
-  const baseTimeZone = props.timeZones[0] ?? 'UTC';
-  const baseDateMoment = moment.tz(
-    props.selectedDate,
-    props.timeZones[0] ?? 'UTC'
-  );
+  const { baseTimeZone } = props;
+  const baseDateMoment = moment.tz(props.selectedDate, props.baseTimeZone);
   const baseTimelineMap = (
     <tr key={baseTimeZone}>
       <td>{baseTimeZone}</td>
