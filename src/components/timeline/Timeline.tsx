@@ -8,6 +8,7 @@ import styles from './Timeline.module.css';
 type TimelineProps = {
   startEpoch: number;
   timeZone: string;
+  currentUTCTime: moment.Moment;
 };
 const Timeline = (props: TimelineProps) => {
   const daySegments = [];
@@ -22,6 +23,7 @@ const Timeline = (props: TimelineProps) => {
           startEpoch={currentDate.valueOf()}
           timeZone={props.timeZone}
           maxEpoch={maxEpoch}
+          currentUTCTime={props.currentUTCTime}
         ></DaySegment>
       );
     }

@@ -10,10 +10,11 @@ type DaySegmentProps = {
   startEpoch: number;
   timeZone: string;
   maxEpoch: number;
+  currentUTCTime: moment.Moment;
 };
 const DaySegment = (props: DaySegmentProps) => {
   let processDate = moment.tz(props.startEpoch, props.timeZone);
-  const now = moment.tz(props.timeZone);
+  const now = props.currentUTCTime.clone().tz(props.timeZone);
 
   const dayslotProps = {
     month: processDate.format('MMM'),

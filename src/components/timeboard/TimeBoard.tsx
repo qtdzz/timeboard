@@ -22,7 +22,11 @@ const TimeBoardRow = (props: TimeBoardRowProps) => {
         ></TimeZoneInfo>
       </td>
       <td>
-        <Timeline timeZone={timeZone} startEpoch={startEpoch}></Timeline>
+        <Timeline
+          timeZone={timeZone}
+          startEpoch={startEpoch}
+          currentUTCTime={currentUTCTime}
+        ></Timeline>
       </td>
     </tr>
   );
