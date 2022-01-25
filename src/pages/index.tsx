@@ -1,11 +1,13 @@
+import { useState } from 'react';
+
 import moment from 'moment';
 
 import TimeBoard from '../components/timeboard/TimeBoard';
 
 const Index = () => {
-  const baseTimeZone = 'Pacific/Marquesas';
+  const baseTimeZone = 'UTC';
   const baseDate = moment.tz(baseTimeZone).add(-6, 'hour').minute(0).valueOf();
-  const timeZones = [
+  const [timeZones, setTimeZones] = useState([
     'Europe/Luxembourg',
     'America/New_York',
     'America/Los_Angeles',
@@ -13,14 +15,16 @@ const Index = () => {
     'Asia/Kolkata',
     'Asia/Katmandu',
     'Pacific/Marquesas',
-  ];
-
+  ]);
+  const removeCallback = (timeZone: string) =>
+    setTimeZones(timeZones.filter((e: string) => e !== timeZone));
   return (
     <div>
       <TimeBoard
         selectedDate={baseDate}
         baseTimeZone={baseTimeZone}
         timeZones={timeZones}
+        removeCallback={removeCallback}
       ></TimeBoard>
     </div>
   );

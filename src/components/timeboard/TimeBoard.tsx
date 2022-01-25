@@ -12,9 +12,10 @@ type TimeBoardRowProps = {
   currentUTCTime: moment.Moment;
   setIndicatorXFunction: Function;
   mouseLeftPosition: number;
+  removeCallback?: Function;
 };
 const TimeBoardRow = (props: TimeBoardRowProps) => {
-  const { startEpoch, timeZone, currentUTCTime } = props;
+  const { startEpoch, timeZone, currentUTCTime, removeCallback } = props;
   const handleMouseOver = (x: number) => {
     props.setIndicatorXFunction(x);
   };
@@ -24,6 +25,7 @@ const TimeBoardRow = (props: TimeBoardRowProps) => {
         <TimeZoneInfo
           timeZone={timeZone}
           currentUTCTime={currentUTCTime}
+          removeCallback={removeCallback}
         ></TimeZoneInfo>
       </td>
       <td onMouseMoveCapture={(e) => handleMouseOver(e.clientX)}>
@@ -51,6 +53,7 @@ type TimeBoardProps = {
   selectedDate: number;
   baseTimeZone: string;
   timeZones: string[];
+  removeCallback: Function;
 };
 const TimeBoard = (props: TimeBoardProps) => {
   const { baseTimeZone } = props;
@@ -88,6 +91,7 @@ const TimeBoard = (props: TimeBoardProps) => {
         currentUTCTime={currentUTCTime}
         setIndicatorXFunction={debounceSetX}
         mouseLeftPosition={leftPosition}
+        removeCallback={props.removeCallback}
       ></TimeBoardRow>
     ));
   return (
