@@ -11,13 +11,13 @@ type TimeZoneInfoProps = {
 const TimeZoneInfo = (props: TimeZoneInfoProps) => {
   const { timeZone, currentUTCTime } = props;
   const currentTime = currentUTCTime.clone().tz(timeZone);
-  const offsetText = `UTC${currentTime.format('Z')}`;
+  const offsetText = `(UTC${currentTime.format('Z')})`;
   return (
     <div className={styles.timeZoneRow}>
       <div>{timeZone}</div>
-      <div>{offsetText}</div>
+      <div className={styles.offsetText}>{offsetText}</div>
       <div className={styles.currentTime}>
-        {currentTime.format('YYYY-MM-DDTHH:mm:ss')}
+        {currentTime.format('YYYY-MM-DDTHH:mm')}
       </div>
     </div>
   );

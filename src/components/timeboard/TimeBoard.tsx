@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import moment from 'moment-timezone';
 
@@ -10,6 +10,7 @@ type TimeBoardRowProps = {
   startEpoch: number;
   timeZone: string;
   currentUTCTime: moment.Moment;
+  setIndicatorXFunction: Function;
 };
 const TimeBoardRow = (props: TimeBoardRowProps) => {
   const { startEpoch, timeZone, currentUTCTime } = props;
@@ -21,7 +22,7 @@ const TimeBoardRow = (props: TimeBoardRowProps) => {
           currentUTCTime={currentUTCTime}
         ></TimeZoneInfo>
       </td>
-      <td>
+      <td onMouseMoveCapture={(e) => props.setIndicatorXFunction(e.clientX)}>
         <Timeline
           timeZone={timeZone}
           startEpoch={startEpoch}
@@ -30,6 +31,15 @@ const TimeBoardRow = (props: TimeBoardRowProps) => {
       </td>
     </tr>
   );
+};
+
+const debounce = (callback: Function, wait: number) => {
+  let timeout: any;
+  return (...args: any[]) => {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => callback.apply(context, args), wait);
+  };
 };
 
 type TimeBoardProps = {
@@ -41,7 +51,28 @@ const TimeBoard = (props: TimeBoardProps) => {
   const { baseTimeZone } = props;
   const baseDateMoment = moment.tz(props.selectedDate, props.baseTimeZone);
   const [currentUTCTime, setCurrentUTCTime] = useState(moment());
-  setInterval(() => setCurrentUTCTime(moment()), 1000);
+  const [height, setHeight] = useState(0);
+  const [leftPosition, setLeftPosition] = useState(0);
+  const [indicatorLineStyle, setIndicatorLineStyle] = useState({});
+
+  const tableRef = useRef(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => setCurrentUTCTime(moment()), 1000 * 60);
+    return () => clearInterval(interval);
+  });
+  useEffect(() => {
+    if (tableRef.current) {
+      setHeight((tableRef.current as HTMLElement).offsetHeight);
+      setIndicatorLineStyle({ height, left: leftPosition });
+    }
+  }, [height, leftPosition]);
+  useEffect(() => {
+    setIndicatorLineStyle({ height, left: leftPosition });
+  }, [height, leftPosition]);
+
+  const debounceSetX = debounce((e: number) => setLeftPosition(e), 300);
+
   const otherTimelines = props.timeZones
     .filter((a) => a !== baseTimeZone)
     .map((timeZone) => (
@@ -50,19 +81,24 @@ const TimeBoard = (props: TimeBoardProps) => {
         startEpoch={baseDateMoment.clone().tz(timeZone).valueOf()}
         timeZone={timeZone}
         currentUTCTime={currentUTCTime}
+        setIndicatorXFunction={debounceSetX}
       ></TimeBoardRow>
     ));
   return (
-    <table className={styles.table}>
-      <tbody>
-        <TimeBoardRow
-          startEpoch={baseDateMoment.valueOf()}
-          timeZone={baseTimeZone}
-          currentUTCTime={currentUTCTime}
-        ></TimeBoardRow>
-        {otherTimelines}
-      </tbody>
-    </table>
+    <div>
+      <table className={styles.table} ref={tableRef}>
+        <tbody>
+          <TimeBoardRow
+            startEpoch={baseDateMoment.valueOf()}
+            timeZone={baseTimeZone}
+            currentUTCTime={currentUTCTime}
+            setIndicatorXFunction={debounceSetX}
+          ></TimeBoardRow>
+          {otherTimelines}
+        </tbody>
+      </table>
+      <div className={styles.indicatorLine} style={indicatorLineStyle}></div>
+    </div>
   );
 };
 

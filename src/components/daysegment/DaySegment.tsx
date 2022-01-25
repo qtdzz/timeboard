@@ -33,7 +33,7 @@ const DaySegment = (props: DaySegmentProps) => {
   ) {
     const isNow =
       now.valueOf() >= processDate.valueOf() &&
-      now.valueOf() <= processDate.valueOf() + 60 * 60 * 1000;
+      now.valueOf() < processDate.valueOf() + 60 * 60 * 1000;
     const isPast = !isNow && now.valueOf() > processDate.valueOf();
 
     timeslots.push(

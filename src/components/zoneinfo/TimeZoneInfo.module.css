@@ -2,6 +2,11 @@
   @apply flex;
   @apply flex-col;
 }
+.offsetText {
+  @apply text-sm;
+  @apply text-[#3D405B];
+
+}
 .currentTime {
   @apply text-xs;
   @apply text-[#3D405B];

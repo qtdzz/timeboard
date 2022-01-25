@@ -12,3 +12,15 @@
   @apply text-xs;
   @apply text-[#3D405B];
 }
+.indicatorLine {
+  @apply border-dashed;
+  @apply opacity-60;
+  @apply border-l-2;
+  @apply border-black;
+  @apply z-50;
+  @apply w-1;
+  @apply top-0;
+  @apply absolute;
+  @apply ease-linear;
+  @apply duration-300;
+}
