@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import moment from 'moment';
 
@@ -11,6 +11,7 @@ type DaySegmentProps = {
   timeZone: string;
   maxEpoch: number;
   currentUTCTime: moment.Moment;
+  mouseLeftPosition: number;
 };
 const DaySegment = (props: DaySegmentProps) => {
   let processDate = moment.tz(props.startEpoch, props.timeZone);
@@ -25,6 +26,16 @@ const DaySegment = (props: DaySegmentProps) => {
   const timeslots = [];
   const minute = processDate.minute();
   const timeFormat = minute === 0 ? 'HH' : 'HH:mm';
+  const indicatorTopRef = useRef(null);
+  const [topIndicator, setTopIndicator] = useState(0);
+  useEffect(() => {
+    if (indicatorTopRef.current) {
+      const { top } = (
+        indicatorTopRef.current as HTMLElement
+      ).getBoundingClientRect();
+      setTopIndicator(top);
+    }
+  }, [indicatorTopRef]);
   for (
     let index = processDate.hour();
     index < 24 && processDate.valueOf() < props.maxEpoch;
@@ -42,13 +53,17 @@ const DaySegment = (props: DaySegmentProps) => {
         value={processDate.format(timeFormat)}
         isNow={isNow}
         isPast={isPast}
+        mouseLeftPosition={props.mouseLeftPosition}
+        epoch={processDate.valueOf()}
+        timeZone={props.timeZone}
+        topIndicatorPosition={topIndicator}
       ></TimeSlot>
     );
     processDate = processDate.add(1, 'hour');
   }
   return (
     <div className={styles.parent}>
-      <div>
+      <div ref={indicatorTopRef}>
         <DaySlot
           month={dayslotProps.month.toString()}
           day={dayslotProps.day.toString()}

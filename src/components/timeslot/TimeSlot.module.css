@@ -54,3 +54,16 @@
   @apply items-center;
   @apply justify-center;
 }
+
+.indicatorTime {
+  @apply absolute;
+  @apply invisible;
+}
+.indicatorContainer {
+  @apply h-6;
+}
+.slotContainer {
+  @apply flex;
+  @apply flex-row;
+  @apply items-start;
+}

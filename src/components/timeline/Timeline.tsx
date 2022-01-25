@@ -9,6 +9,7 @@ type TimelineProps = {
   startEpoch: number;
   timeZone: string;
   currentUTCTime: moment.Moment;
+  mouseLeftPosition: number;
 };
 const Timeline = (props: TimelineProps) => {
   const daySegments = [];
@@ -24,6 +25,7 @@ const Timeline = (props: TimelineProps) => {
           timeZone={props.timeZone}
           maxEpoch={maxEpoch}
           currentUTCTime={props.currentUTCTime}
+          mouseLeftPosition={props.mouseLeftPosition}
         ></DaySegment>
       );
     }

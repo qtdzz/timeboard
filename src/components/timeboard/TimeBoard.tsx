@@ -11,9 +11,13 @@ type TimeBoardRowProps = {
   timeZone: string;
   currentUTCTime: moment.Moment;
   setIndicatorXFunction: Function;
+  mouseLeftPosition: number;
 };
 const TimeBoardRow = (props: TimeBoardRowProps) => {
   const { startEpoch, timeZone, currentUTCTime } = props;
+  const handleMouseOver = (x: number) => {
+    props.setIndicatorXFunction(x);
+  };
   return (
     <tr key={timeZone} className={styles.row}>
       <td>
@@ -22,11 +26,12 @@ const TimeBoardRow = (props: TimeBoardRowProps) => {
           currentUTCTime={currentUTCTime}
         ></TimeZoneInfo>
       </td>
-      <td onMouseMoveCapture={(e) => props.setIndicatorXFunction(e.clientX)}>
+      <td onMouseMoveCapture={(e) => handleMouseOver(e.clientX)}>
         <Timeline
           timeZone={timeZone}
           startEpoch={startEpoch}
           currentUTCTime={currentUTCTime}
+          mouseLeftPosition={props.mouseLeftPosition}
         ></Timeline>
       </td>
     </tr>
@@ -71,7 +76,7 @@ const TimeBoard = (props: TimeBoardProps) => {
     setIndicatorLineStyle({ height, left: leftPosition });
   }, [height, leftPosition]);
 
-  const debounceSetX = debounce((e: number) => setLeftPosition(e), 300);
+  const debounceSetX = debounce((e: number) => setLeftPosition(e), 50);
 
   const otherTimelines = props.timeZones
     .filter((a) => a !== baseTimeZone)
@@ -82,6 +87,7 @@ const TimeBoard = (props: TimeBoardProps) => {
         timeZone={timeZone}
         currentUTCTime={currentUTCTime}
         setIndicatorXFunction={debounceSetX}
+        mouseLeftPosition={leftPosition}
       ></TimeBoardRow>
     ));
   return (
@@ -93,6 +99,7 @@ const TimeBoard = (props: TimeBoardProps) => {
             timeZone={baseTimeZone}
             currentUTCTime={currentUTCTime}
             setIndicatorXFunction={debounceSetX}
+            mouseLeftPosition={leftPosition}
           ></TimeBoardRow>
           {otherTimelines}
         </tbody>
