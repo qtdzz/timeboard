@@ -31,13 +31,16 @@ const DaySegment = (props: DaySegmentProps) => {
     index++
   ) {
     const isNow =
-      now.hour() === processDate.hour() &&
-      now.dayOfYear() === processDate.dayOfYear();
+      now.valueOf() >= processDate.valueOf() &&
+      now.valueOf() <= processDate.valueOf() + 60 * 60 * 1000;
+    const isPast = !isNow && now.valueOf() > processDate.valueOf();
+
     timeslots.push(
       <TimeSlot
         key={index}
         value={processDate.format(timeFormat)}
         isNow={isNow}
+        isPast={isPast}
       ></TimeSlot>
     );
     processDate = processDate.add(1, 'hour');

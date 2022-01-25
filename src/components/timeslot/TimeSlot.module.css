@@ -25,10 +25,7 @@
   @apply text-[#3D405B];
  }
 
- .now{
-   @apply bg-[#81B29A];
-   @apply bg-opacity-70;
- }
+
 
  .subContent {
    @apply text-xs;
@@ -42,6 +39,15 @@
   @apply items-center;
   @apply justify-center;
   @apply bg-gray-500;
+}
+
+.now{
+  @apply bg-[#81B29A];
+  @apply bg-opacity-70;
+}
+
+.past {
+  @apply opacity-50;
 }
 
 .line:hover {

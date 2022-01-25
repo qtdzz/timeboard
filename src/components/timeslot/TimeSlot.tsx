@@ -5,11 +5,18 @@ import styles from './TimeSlot.module.css';
 type TimeSlotProps = {
   value: string;
   isNow: boolean;
+  isPast: boolean;
 };
 const TimeSlot = (props: TimeSlotProps) => {
   const styleList = [styles.timeslot];
+  const lineStyleList = [styles.line];
+  const parentStyleList = [styles.slotParent];
   if (props.isNow) {
     styleList.push(styles.now);
+    lineStyleList.push(styles.now);
+  }
+  if (props.isPast) {
+    parentStyleList.push(styles.past);
   }
   let content = props.value;
   let subContent = '';
@@ -19,12 +26,12 @@ const TimeSlot = (props: TimeSlotProps) => {
     subContent = splittedContent[1]!;
   }
   return (
-    <div className={styles.slotParent}>
+    <div className={parentStyleList.join(' ')}>
       <div className={styleList.join(' ')}>
         {content}
         <span className={styles.subContent}>{subContent}</span>
       </div>
-      <div className={styles.line}></div>
+      <div className={lineStyleList.join(' ')}></div>
     </div>
   );
 };

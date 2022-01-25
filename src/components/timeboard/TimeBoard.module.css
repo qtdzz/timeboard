@@ -1,0 +1,14 @@
+.table {
+  @apply table-auto;
+}
+.row {
+  @apply border-2;
+}
+.timeZoneRow {
+  @apply flex;
+  @apply flex-col;
+}
+.currentTime {
+  @apply text-xs;
+  @apply text-[#3D405B];
+}
