@@ -11,3 +11,19 @@
   @apply text-xs;
   @apply text-[#3D405B];
 }
+.removeButton{
+  @apply inline-block rounded-full bg-[#E07A5F] text-white leading-normal uppercase;
+  @apply shadow-md hover:bg-[#e6866c] hover:shadow-lg;
+  @apply focus:bg-[#E07A5F] focus:shadow-lg focus:outline-none focus:ring-0;
+  @apply active:bg-[#d16f53] active:shadow-lg transition duration-150 ease-in-out;
+  @apply w-5 h-5;
+  @apply mt-[-15px];
+  @apply mr-[-15px];
+}
+.removeButtonContainer {
+  @apply flex justify-center;
+
+}
+.timeZoneRowContainer{
+  @apply flex flex-row justify-between;
+}

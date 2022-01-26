@@ -50,18 +50,26 @@ const debounce = (callback: Function, wait: number) => {
 };
 
 type TimeBoardProps = {
-  selectedDate: number;
   baseTimeZone: string;
-  timeZones: string[];
-  removeCallback: Function;
+  defaultTimeZones: string[];
+  selectedDate?: number;
 };
 const TimeBoard = (props: TimeBoardProps) => {
   const { baseTimeZone } = props;
-  const baseDateMoment = moment.tz(props.selectedDate, props.baseTimeZone);
+  const baseDateMoment = props.selectedDate
+    ? moment
+        .tz(props.selectedDate, props.baseTimeZone)
+        .add(-6, 'hour')
+        .minute(0)
+    : moment.tz(baseTimeZone).add(-6, 'hour').minute(0);
   const [currentUTCTime, setCurrentUTCTime] = useState(moment());
   const [height, setHeight] = useState(0);
   const [leftPosition, setLeftPosition] = useState(0);
   const [indicatorLineStyle, setIndicatorLineStyle] = useState({});
+
+  const [timeZones, setTimeZones] = useState(props.defaultTimeZones);
+  const removeCallback = (timeZone: string) =>
+    setTimeZones(timeZones.filter((e: string) => e !== timeZone));
 
   const tableRef = useRef(null);
 
@@ -81,7 +89,7 @@ const TimeBoard = (props: TimeBoardProps) => {
 
   const debounceSetX = debounce((e: number) => setLeftPosition(e), 50);
 
-  const otherTimelines = props.timeZones
+  const otherTimelines = timeZones
     .filter((a) => a !== baseTimeZone)
     .map((timeZone) => (
       <TimeBoardRow
@@ -91,11 +99,12 @@ const TimeBoard = (props: TimeBoardProps) => {
         currentUTCTime={currentUTCTime}
         setIndicatorXFunction={debounceSetX}
         mouseLeftPosition={leftPosition}
-        removeCallback={props.removeCallback}
+        removeCallback={removeCallback}
       ></TimeBoardRow>
     ));
   return (
     <div>
+      <input></input>
       <table className={styles.table} ref={tableRef}>
         <tbody>
           <TimeBoardRow
