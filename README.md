@@ -1,13 +1,14 @@
 ### Introduction
 
 - A simple time board for comparing different timelines in different timezones.
-- Code is a mess.
+- Code in this project is a mess.
+- This is supposed to run in a desktop browser, aka I didn't test in mobile/tablet screens.
 
 ### TODO
 - [ ] Autosuggest the valid input time zones.
 - [ ] DarkMode styles. (I am using Dark Reader extension in Firefox atm)
 - [ ] Genearte sharable link. Use query parameters to preload time zones.
-...
+- [ ] Tests (of course x_x)
 
 ### Requirements
 
