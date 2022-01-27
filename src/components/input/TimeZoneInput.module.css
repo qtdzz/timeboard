@@ -1,0 +1,25 @@
+.textInput {
+  @apply block;
+  @apply w-full;
+  @apply px-3;
+  @apply py-1.5;
+  @apply text-base;
+  @apply font-normal;
+  @apply text-gray-700;
+  @apply bg-white bg-clip-padding;
+  @apply border border-solid border-gray-300;
+  @apply rounded;
+  @apply transition;
+  @apply ease-in-out;
+  @apply m-0;
+  @apply focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none;
+}
+.textInputLabel {
+  @apply inline-block mb-2 text-gray-700;
+}
+.textInputContainer {
+  @apply mb-3 xl:w-96;
+}
+.container {
+  @apply flex;
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import moment from 'moment-timezone';
 
+import TimeZoneInput from '../input/TimeZoneInput';
 import Timeline from '../timeline/Timeline';
 import TimeZoneInfo from '../zoneinfo/TimeZoneInfo';
 import styles from './TimeBoard.module.css';
@@ -64,6 +65,7 @@ const TimeBoard = (props: TimeBoardProps) => {
     : moment.tz(baseTimeZone).add(-6, 'hour').minute(0);
   const [currentUTCTime, setCurrentUTCTime] = useState(moment());
   const [height, setHeight] = useState(0);
+  const [top, setTop] = useState(0);
   const [leftPosition, setLeftPosition] = useState(0);
   const [indicatorLineStyle, setIndicatorLineStyle] = useState({});
 
@@ -80,12 +82,13 @@ const TimeBoard = (props: TimeBoardProps) => {
   useEffect(() => {
     if (tableRef.current) {
       setHeight((tableRef.current as HTMLElement).offsetHeight);
-      setIndicatorLineStyle({ height, left: leftPosition });
+      setTop((tableRef.current as HTMLElement).getBoundingClientRect().top);
+      setIndicatorLineStyle({ height, left: leftPosition, top });
     }
-  }, [height, leftPosition]);
+  }, [height, leftPosition, top]);
   useEffect(() => {
-    setIndicatorLineStyle({ height, left: leftPosition });
-  }, [height, leftPosition]);
+    setIndicatorLineStyle({ height, left: leftPosition, top });
+  }, [height, leftPosition, top]);
 
   const debounceSetX = debounce((e: number) => setLeftPosition(e), 50);
 
@@ -103,8 +106,8 @@ const TimeBoard = (props: TimeBoardProps) => {
       ></TimeBoardRow>
     ));
   return (
-    <div>
-      <input></input>
+    <div className={styles.container}>
+      <TimeZoneInput></TimeZoneInput>
       <table className={styles.table} ref={tableRef}>
         <tbody>
           <TimeBoardRow
