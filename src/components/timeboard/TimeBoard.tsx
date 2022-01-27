@@ -56,7 +56,7 @@ type TimeBoardProps = {
   selectedDate?: number;
 };
 const TimeBoard = (props: TimeBoardProps) => {
-  const { baseTimeZone } = props;
+  const { baseTimeZone, defaultTimeZones } = props;
   const baseDateMoment = props.selectedDate
     ? moment
         .tz(props.selectedDate, props.baseTimeZone)
@@ -68,10 +68,7 @@ const TimeBoard = (props: TimeBoardProps) => {
   const [top, setTop] = useState(0);
   const [leftPosition, setLeftPosition] = useState(0);
   const [indicatorLineStyle, setIndicatorLineStyle] = useState({});
-
-  const [timeZones, setTimeZones] = useState(props.defaultTimeZones);
-  const removeCallback = (timeZone: string) =>
-    setTimeZones(timeZones.filter((e: string) => e !== timeZone));
+  const [timeZones, setTimeZones] = useState(defaultTimeZones);
 
   const tableRef = useRef(null);
 
@@ -90,7 +87,26 @@ const TimeBoard = (props: TimeBoardProps) => {
     setIndicatorLineStyle({ height, left: leftPosition, top });
   }, [height, leftPosition, top]);
 
+  useEffect(() => {
+    setTimeZones(defaultTimeZones);
+  }, [defaultTimeZones]);
   const debounceSetX = debounce((e: number) => setLeftPosition(e), 50);
+
+  const setNewTimeZones = (newTimeZones: string[]) => {
+    setTimeZones(newTimeZones);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('savedTimeZone', JSON.stringify(newTimeZones));
+    }
+  };
+
+  const addTimeZoneCallback = (z: string) => {
+    const newTimeZones = [...timeZones, z];
+    setNewTimeZones(newTimeZones);
+  };
+
+  const removeCallback = (timeZone: string) => {
+    setNewTimeZones(timeZones.filter((e: string) => e !== timeZone));
+  };
 
   const otherTimelines = timeZones
     .filter((a) => a !== baseTimeZone)
@@ -105,11 +121,10 @@ const TimeBoard = (props: TimeBoardProps) => {
         removeCallback={removeCallback}
       ></TimeBoardRow>
     ));
+
   return (
     <div className={styles.container}>
-      <TimeZoneInput
-        addTimeZoneCallback={(z: string) => setTimeZones([...timeZones, z])}
-      ></TimeZoneInput>
+      <TimeZoneInput addTimeZoneCallback={addTimeZoneCallback}></TimeZoneInput>
       <table className={styles.table} ref={tableRef}>
         <tbody>
           <TimeBoardRow
