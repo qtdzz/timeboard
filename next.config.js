@@ -3,15 +3,22 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const isProd = process.env.NODE_ENV === 'production';
+const pathsFromEnv = {
+  basePath: process.env.TIMEBOARD_BASE_URL
+    ? process.env.TIMEBOARD_BASE_URL
+    : '',
+  assetPrefix: process.env.TIMEBOARD_ASSET_PREFIX
+    ? process.env.TIMEBOARD_ASSET_PREFIX
+    : '',
+};
 
 module.exports = withBundleAnalyzer({
   poweredByHeader: false,
   trailingSlash: true,
-  basePath: isProd ? '/timeboard' : '',
+  basePath: pathsFromEnv.basePath,
   // The starter code load resources from `public` folder with `router.basePath` in React components.
   // So, the source code is "basePath-ready".
   // You can remove `basePath` if you don't need it.
   reactStrictMode: true,
-  assetPrefix: isProd ? '/timeboard/' : '',
+  assetPrefix: pathsFromEnv.assetPrefix,
 });
