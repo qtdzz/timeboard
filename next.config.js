@@ -3,6 +3,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const isProd = process.env.NODE_ENV === 'production';
+
 module.exports = withBundleAnalyzer({
   poweredByHeader: false,
   trailingSlash: true,
@@ -11,4 +13,5 @@ module.exports = withBundleAnalyzer({
   // So, the source code is "basePath-ready".
   // You can remove `basePath` if you don't need it.
   reactStrictMode: true,
+  assetPrefix: isProd ? '/your-github-repo-name/' : '',
 });
