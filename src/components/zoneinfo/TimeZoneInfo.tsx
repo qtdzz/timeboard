@@ -44,7 +44,7 @@ const TimeZoneInfo = (props: TimeZoneInfoProps) => {
     );
 
   return (
-    <div className="flex justify-left">
+    <div className="flex justify-left p-3">
       <div className="block p-6 rounded-lg shadow-lg bg-white w-full">
         <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
           <div className={styles.timeZoneRowContainer}>
