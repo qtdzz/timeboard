@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import moment from 'moment';
 
 import TimeBoard from '../components/timeboard/TimeBoard';
+import { Meta } from '../layout/Meta';
+import { Main } from '../templates/Main';
 
 const Index = () => {
   const [savedTimeZones, setSavedTimeZones] = useState([]);
@@ -15,13 +17,20 @@ const Index = () => {
     }
   }, []);
   return (
-    <div>
+    <Main
+      meta={
+        <Meta
+          title="Time Board"
+          description="A simple time board for comparing different timelines in different time zones."
+        />
+      }
+    >
       <TimeBoard
         selectedDate={moment().valueOf()}
         baseTimeZone="UTC"
         defaultTimeZones={savedTimeZones}
       ></TimeBoard>
-    </div>
+    </Main>
   );
 };
 
