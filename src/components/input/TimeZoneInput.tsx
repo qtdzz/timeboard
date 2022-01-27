@@ -33,7 +33,7 @@ const TimeZoneInput = (props: TimeZoneInputProps) => {
     <div className={styles.container}>
       <div className={styles.textInputContainer}>
         <label htmlFor="timeZoneInput" className={styles.textInputLabel}>
-          Add time zone
+          Add another time zone
         </label>
         <input
           type="text"

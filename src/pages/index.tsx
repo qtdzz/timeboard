@@ -11,7 +11,8 @@ const Index = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const localStorageSavedTimeZones = JSON.parse(
-        localStorage.getItem('savedTimeZone') ?? '[]'
+        localStorage.getItem('savedTimeZone') ??
+          '["Europe/Luxembourg", "America/Los_Angeles"]'
       );
       setSavedTimeZones(localStorageSavedTimeZones);
     }
