@@ -18,8 +18,21 @@
   @apply inline-block mb-2 text-gray-700;
 }
 .textInputContainer {
-  @apply mb-3 xl:w-96;
+  @apply mb-3 xl:w-60;
 }
 .container {
-  @apply flex;
+  @apply flex flex-col;
+  @apply xl:w-60;
+  @apply pb-5;
+}
+.addButton {
+ @apply inline-block px-6 py-2.5 ;
+ @apply bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded;
+ @apply shadow-md hover:bg-blue-700 hover:shadow-lg;
+ @apply focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0;
+ @apply active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out;
+}
+.addButton[disabled] {
+ @apply pointer-events-none opacity-60;
+
 }

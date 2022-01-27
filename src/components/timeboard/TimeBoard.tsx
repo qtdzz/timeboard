@@ -107,7 +107,9 @@ const TimeBoard = (props: TimeBoardProps) => {
     ));
   return (
     <div className={styles.container}>
-      <TimeZoneInput></TimeZoneInput>
+      <TimeZoneInput
+        addTimeZoneCallback={(z: string) => setTimeZones([...timeZones, z])}
+      ></TimeZoneInput>
       <table className={styles.table} ref={tableRef}>
         <tbody>
           <TimeBoardRow
