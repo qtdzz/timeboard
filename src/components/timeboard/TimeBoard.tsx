@@ -79,7 +79,7 @@ const TimeBoard = (props: TimeBoardProps) => {
   useEffect(() => {
     if (tableRef.current) {
       setHeight((tableRef.current as HTMLElement).offsetHeight);
-      setTop((tableRef.current as HTMLElement).getBoundingClientRect().top);
+      setTop((tableRef.current as HTMLElement).offsetTop);
       setIndicatorLineStyle({ height, left: leftPosition, top });
     }
   }, [height, leftPosition, top]);
